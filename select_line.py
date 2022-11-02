@@ -78,7 +78,4 @@ class select_line():
         elif self.line == 'arex':
             lines = self.find_element(By.CSS_SELECTOR, "#cmbDir > option:nth-child(2)")
             lines.click()
-        return line_identifier
-
-    def line_return(self):
-        return self.line
+        return line_identifier, self.line

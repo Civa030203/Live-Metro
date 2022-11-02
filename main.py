@@ -29,7 +29,7 @@ class main:
         pass_train = driver.find_element(By.CSS_SELECTOR, '#chkSkip')
         #pass_train.click()
 
-    def info(self, url, driver, station, id, dir, dirkor):
+    def info(self, url, driver, station, id, dir, dirkor, line_number):
         print(f'{station}역의 {dirkor}행선 도착 정보', '\n')
         try:
             response = requests.get(url)
@@ -135,14 +135,13 @@ class main:
             time.sleep(1)
             os.system('clear')
             clear_output()
-            self(self, url, driver, station, id, dir, dirkor)
+            self(self, url, driver, station, id, dir, dirkor, line_number)
 
     clear_output()
     os.system('clear')
     url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
     driver = start_options(url)
-    id = select_line.process(driver)
-    line_number = select_line.line_return(driver)
+    id, line_number = select_line.process(driver)
     os.system('clear')
     clear_output()
     print(line_number)
@@ -153,6 +152,6 @@ class main:
     ulinfo = up_low_info.process(id, line_number)
     direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
     if direction == '1':
-        info(info, url, driver, station, id, 'U', '상')
+        info(info, url, driver, station, id, 'U', '상', line_number)
     elif direction == '2':
-        info(info, url, driver, station, id, 'D', '하')
+        info(info, url, driver, station, id, 'D', '하', line_number)
