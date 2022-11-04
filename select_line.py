@@ -32,7 +32,7 @@ class select_line():
         elif self.line in ['5', '6', '7', '8']:
             lines = self.find_element(By.CSS_SELECTOR, "#cmbDir > option:nth-child(7)")
             lines.click()
-            if line == '5':
+            if self.line == '5':
                 line_identifier = 'tdResultSMRT5'
             elif self.line == '6':
                 line_identifier = 'tdResultSMRT6'

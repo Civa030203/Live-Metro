@@ -30,20 +30,21 @@ class main:
         #pass_train.click()
 
     def info(self, url, driver, station, id, dir, dirkor, line_number):
-        print(f'{station}역의 {dirkor}행선 도착 정보', '\n')
-        try:
-            response = requests.get(url)
-            soup = BeautifulSoup(driver.page_source, 'html.parser')
-            if station in ['서울', '광명', '지평', '임진강']:
-                trains = 2
-            elif station in ['봉명', '쌍용', '아산', '탕정', '배방', '온양온천', '신창', '신내', '소요산', '용문']:
-                trains = 3
-            else:
-                trains = 4
-            for x in range(1, trains):
+        print(f'{station}역의 {dirkor}선 도착 정보', '\n')
+        time.sleep(1)
+        response = requests.get(url)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        x = 1
+        while True:
+            try:
                 noDelayInfo = False
-                isRapid = False
-                isGwangmyeong = False
+                rapidText = ''
+                semiRapidText = ''
+                commuterRapidText = ''
+                gyeonguiRapidText = ''
+                jungangRapidText = ''
+                gwangmyeongText = ''
+                trainNo = ''
                 dest = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroTrainDestination > span').get_text()
                 if dest == '광운대역':
                     dest = '광운대'
@@ -51,48 +52,62 @@ class main:
                     dest = '청량리'
                 if dest == '지하서울역':
                     dest = '서울역'
-                if id == 'tdResultMetroAllStop':
+                if dest == station:
+                    dest = '당역종착'
+                else:
+                    dest = dest + '행'
+                if id == 'tdResultMetroAllStop': # 1호선, 경의중앙선, 수인분당선 등 코레일 관할 노선
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetroAllStop > span > a').get_text()
                     except:
                         try:
                             trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGwangmyeong > span > a').get_text()
-                            isGwangmyeong = True
+                            gwangmyeongText = '4량 편성'
                         except:
-                            isRapid = True
                             try:
-                                trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
+                                rapidText = '급행'
+                                trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultRedRapid > span > a').get_text()
                             except:
                                 try:
-                                    trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultRedRapid > span > a').get_text()
+                                    commuterRapidText = '통근 급행'
+                                    trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultCommuterRapid > span > a').get_text()
                                 except:
                                     try:
-                                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultCommuterRapid > span > a').get_text()
+                                        semiRapidText = '준급행'
+                                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
                                     except:
                                         try:
-                                            trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGreenRapid > span > a').get_text()
+                                            gyeonguiRapidText = '경의선 구간(문산 ~ 효창공원앞) 급행'
+                                            trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGyeonguiRapid > span > a').get_text()
                                         except:
                                             try:
-                                                trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGyeonguiRapid > span > a').get_text()
-                                            except:
+                                                jungangRapidText = '중앙선 구간(용산 ~ 용문) 급행'
                                                 trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultJungangRapid > span > a').get_text()
+                                            except:
+                                                try:
+                                                    rapidText = '경부1선 급행'
+                                                    trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGreenRapid > span > a').get_text()
+                                                except:
+                                                    pass
                 elif id == 'tdResultSeoulMetro4':
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSeoulMetro4 > span > a').get_text()
                     except:
-                        try:
-                            isRapid = True
-                            trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
-                        except:
-                            x += 1
+                        semiRapidText = '준급행'
+                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
                 elif id == 'tdResultMetro9':
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetro9 > span > a').get_text()
                     except:
                         isRapid = True
+                        rapidText = '급행'
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultRedRapid > span > a').get_text()
                 else:
-                    trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.{id} > span > a').get_text()
+                    try:
+                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.{id} > span > a').get_text()
+                    except:
+                        pass
+
                 if trainNo[5] in ['도', '출', '종']:
                     trainState = trainNo[5:7]
                     trainNo = trainNo[:5]
@@ -118,24 +133,17 @@ class main:
                     trainNo = '#SMRT' + trainNo[1:5]
                 if id == 'tdResultSeoulMetro2':
                     trainNo = '#S' + trainNo[1:5]
-                if dest != station and not isRapid and not isGwangmyeong:
-                    print(f'{dest}행 (열차번호 : {trainNo}) 열차가 약 {estTime} 후에 {trainState}합니다.')
-                elif dest != station and isRapid and not isGwangmyeong:
-                    print(f'{dest}행 (열차번호 : {trainNo}) 급행 열차가 약 {estTime} 후에 {trainState}합니다.')
-                elif dest != station and not isRapid and isGwangmyeong:
-                    print(f'{dest}행 (열차번호 : {trainNo}) 4량 편성 열차가 약 {estTime} 후에 {trainState}합니다.')
-                else:
-                    print(f'당역종착 (열차번호 : {trainNo}) 열차가 약 {estTime} 후에 도착합니다.')
-                if noDelayInfo and trainState != '출발':
-                    print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 제공된 예상 시간이며 정확하지 않을 수 있으니 참고하시기 바랍니다.')
-                elif noDelayInfo and trainState == '출발':
-                    print('당역출발 열차의 경우 앞선 열차의 지연과 같은 이유 등으로 시간이 정확하지 않을 수 있으니 참고하시기 바랍니다.')
-        except:
-            print('운행 중인 열차가 없거나 데이터를 가져오는 중 오류가 발생하여 다시 시도합니다.')
-            time.sleep(1)
-            os.system('clear')
-            clear_output()
-            self(self, url, driver, station, id, dir, dirkor, line_number)
+
+                try:
+                    print(f'{dest} (열차번호 : {trainNo}) {rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText}{gwangmyeongText} 열차가 약 {estTime} 후에 {trainState}합니다.')
+                    x += 1
+                    if noDelayInfo:
+                        print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
+                    print('\n')
+                except:
+                    x += 1
+            except:
+                break
 
     clear_output()
     os.system('clear')
@@ -144,14 +152,16 @@ class main:
     id, line_number = select_line.process(driver)
     os.system('clear')
     clear_output()
-    print(line_number)
     station = input('역 이름을 입력해주세요. ')
     find_start(driver, station)
     find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
     find.click()
-    ulinfo = up_low_info.process(id, line_number)
-    direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
-    if direction == '1':
-        info(info, url, driver, station, id, 'U', '상', line_number)
-    elif direction == '2':
-        info(info, url, driver, station, id, 'D', '하', line_number)
+    if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']:
+        info(info, url, driver, station, id, 'D', '응암순환', line_number)
+    else:
+        ulinfo = up_low_info.process(id, line_number)
+        direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
+        if direction == '1':
+            info(info, url, driver, station, id, 'U', '상행', line_number)
+        elif direction == '2':
+            info(info, url, driver, station, id, 'D', '하행', line_number)
