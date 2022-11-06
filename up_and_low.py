@@ -9,16 +9,16 @@ class up_low_info():
     def process(self, line_number):
         up_and_low = []
         if line_number == '1':
-            up_and_low.append('소요산, 양주, 광운대, 청량리')
-            up_and_low.append('인천, 천안, 서동탄, 신창')
+            up_and_low.append('동두천(소요산) / 양주 / 의정부 / 광운대 / 청량리 / 동묘앞')
+            up_and_low.append('구로 / 부평 / 인천(동인천) / 광명 / 병점 / 서동탄 / 천안(신창)')
         elif line_number == 'gj':
-            up_and_low.append('문산, 용산')
-            up_and_low.append('청량리, 덕소, 팔당, 용문, 지평')
+            up_and_low.append('문산 / 일산 / 대곡 / 용산')
+            up_and_low.append('서울역 / 청량리 / 덕소 / 팔당 / 용문(지평)')
         elif line_number == 'sub':
-            up_and_low.append('청량리 / 왕십리 / 오이도(수인선 구간 한정)')
-            up_and_low.append('죽전 / 고색 / 오이도(분당선 구간 한정) / 인천')
+            up_and_low.append('왕십리(청량리)')
+            up_and_low.append('죽전 / 고색 / 오이도 / 인천')
         elif line_number == 'kc':
-            up_and_low.append('청량리 / 상봉 / 광운대')
+            up_and_low.append('상봉(청량리) / 광운대')
             up_and_low.append('평내호평 / 마석 / 춘천')
         elif line_number == 'sh':
             up_and_low.append('소사')
@@ -43,9 +43,9 @@ class up_low_info():
             up_and_low.append('상일동 / 하남검단산 / 마천')
         elif self == 'tdResultSMRT6':
             up_and_low.append('응암')
-            up_and_low.append('봉화산 / 신내')
+            up_and_low.append('봉화산(신내)')
         elif self == 'tdResultSMRT7':
-            up_and_low.append('장암 / 도봉산')
+            up_and_low.append('도봉산(장암)')
             up_and_low.append('온수 / 석남')
         elif self == 'tdResultSMRT8':
             up_and_low.append('암사')
