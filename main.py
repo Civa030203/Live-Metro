@@ -93,8 +93,11 @@ class main:
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSeoulMetro4 > span > a').get_text()
                     except:
-                        semiRapidText = '준급행'
-                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
+                        try:
+                            semiRapidText = '준급행'
+                            trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
+                        except:
+                            pass
                 elif id == 'tdResultMetro9':
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetro9 > span > a').get_text()
@@ -108,38 +111,41 @@ class main:
                     except:
                         pass
 
-                if trainNo[5] in ['도', '출', '종']:
-                    trainState = trainNo[5:7]
-                    trainNo = trainNo[:5]
-                elif trainNo[4] in ['도', '출', '종']:
-                    trainState = trainNo[4:6]
-                    trainNo = trainNo[:4]
-                elif trainNo[3] in ['도', '출', '종']:
-                    trainState = trainNo[3:5]
-                    trainNo = trainNo[:3]
-                elif trainNo[2] in ['도', '출', '종']:
-                    trainState = trainNo[2:4]
-                    trainNo = trainNo[:2]
-                else:
-                    trainState = trainNo[6:]
-                    trainNo = trainNo[:6]
                 try:
-                    estTime = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroArriveDelayApply').get_text()
-                except:
-                    estTime = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroArriveDelayNone').get_text()
-                    noDelayInfo = True
+                    if trainNo[5] in ['도', '출', '종']:
+                        trainState = trainNo[5:7]
+                        trainNo = trainNo[:5]
+                    elif trainNo[4] in ['도', '출', '종']:
+                        trainState = trainNo[4:6]
+                        trainNo = trainNo[:4]
+                    elif trainNo[3] in ['도', '출', '종']:
+                        trainState = trainNo[3:5]
+                        trainNo = trainNo[:3]
+                    elif trainNo[2] in ['도', '출', '종']:
+                        trainState = trainNo[2:4]
+                        trainNo = trainNo[:2]
+                    else:
+                        trainState = trainNo[6:]
+                        trainNo = trainNo[:6]
+                    try:
+                        estTime = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroArriveDelayApply').get_text()
+                    except:
+                        estTime = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroArriveDelayNone').get_text()
+                        noDelayInfo = True
 
-                if trainNo[1] in ['5', '6', '7', '8']:
-                    trainNo = '#SMRT' + trainNo[1:5]
-                if id == 'tdResultSeoulMetro2':
-                    trainNo = '#S' + trainNo[1:5]
+                    if trainNo[1] in ['5', '6', '7', '8']:
+                        trainNo = '#SMRT' + trainNo[1:5]
+                    if id == 'tdResultSeoulMetro2':
+                        trainNo = '#S' + trainNo[1:5]
 
-                try:
-                    print(f'{dest} (열차번호 : {trainNo}) {rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText}{gwangmyeongText} 열차가 약 {estTime} 후에 {trainState}합니다.')
-                    x += 1
-                    if noDelayInfo:
-                        print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
-                    print('\n')
+                    try:
+                        print(f'{dest} (열차번호 : {trainNo}) {rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText}{gwangmyeongText} 열차가 약 {estTime} 후에 {trainState}합니다.')
+                        x += 1
+                        if noDelayInfo:
+                            print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
+                        print('\n')
+                    except:
+                        x += 1
                 except:
                     x += 1
             except:
