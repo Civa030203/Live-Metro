@@ -53,10 +53,12 @@ class main:
                     dest = '청량리'
                 if dest == '지하서울역':
                     dest = '서울역'
-                if dest in ['내선순환', '외선순환']:
-                    pass
+                if dest == '지하인천':
+                    dest = '인천'
                 if dest == station:
                     dest = '당역종착'
+                elif dest in ['내선순환', '외선순환']:
+                    pass
                 else:
                     dest = dest + '행'
                 if id == 'tdResultMetroAllStop': # 1호선, 경의중앙선, 수인분당선 등 코레일 관할 노선
@@ -136,7 +138,7 @@ class main:
                         estTime = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroArriveDelayNone').get_text()
                         noDelayInfo = True
 
-                    if trainNo[1] in ['5', '6', '7', '8']:
+                    if trainNo[1] in ['5', '6', '7', '8'] and id != 'tdResultSeoulMetro2':
                         trainNo = '#SMRT' + trainNo[1:5]
                     if id == 'tdResultSeoulMetro2':
                         trainNo = '#S' + trainNo[1:5]
@@ -147,7 +149,7 @@ class main:
                         if noDelayInfo:
                             print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
                         if trainNo != '' and not noDelayInfo:
-                            getLocation.process(trainNo)
+                            getLocation.process(driver, trainNo)
                         print('\n')
                     except:
                         x += 1
@@ -158,23 +160,30 @@ class main:
                     print("운행하는 열차가 없습니다.")
                 break
 
-    clear_output()
-    os.system('clear')
-    url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
-    driver = start_options(url)
-    id, line_number = select_line.process(driver)
-    os.system('clear')
-    clear_output()
-    station = input('역 이름을 입력해주세요. ')
-    find_start(driver, station)
-    find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
-    find.click()
-    if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']:
-        info(info, url, driver, station, id, 'D', '응암순환', line_number)
-    else:
-        ulinfo = up_low_info.process(id, line_number)
-        direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
-        if direction == '1':
-            info(info, url, driver, station, id, 'U', '상행', line_number)
-        elif direction == '2':
-            info(info, url, driver, station, id, 'D', '하행', line_number)
+    while True:
+        try:
+            clear_output()
+            os.system('clear')
+        except:
+            os.system('cls')
+        url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
+        driver = start_options(url)
+        id, line_number = select_line.process(driver)
+        os.system('clear')
+        clear_output()
+        station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n')
+        if station == 'exit':
+            break
+        find_start(driver, station)
+        find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
+        find.click()
+        if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']:
+            info(info, url, driver, station, id, 'D', '응암순환', line_number)
+        else:
+            ulinfo = up_low_info.process(id, line_number)
+            direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
+            if direction == '1':
+                info(info, url, driver, station, id, 'U', '상행', line_number)
+            elif direction == '2':
+                info(info, url, driver, station, id, 'D', '하행', line_number)
+        asdf = input('Press any key to continue\n')

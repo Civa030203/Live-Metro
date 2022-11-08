@@ -6,19 +6,23 @@ from time import localtime
 import time
 
 class getLocation():
-    def __init__(self, trainNo):
+    def __init__(self, driver, trainNo):
+        self.driver = driver
         self.trainNo = trainNo
 
-    def process(trainNo):
+    def process(driver, trainNo):
         url = 'https://rail.blue/railroad/logis/timetable.aspx'
-        options = webdriver.ChromeOptions()
-        options.add_argument("headless")
-        driver = webdriver.Chrome("/Applications/chromedriver", options = options)
         driver.get(url)
         company = driver.find_element(By.CSS_SELECTOR, '#txtTrainNo')
-        company.send_keys(trainNo[1])
+        if trainNo[1:5] == 'SMRT':
+            company.send_keys(trainNo[1:5])
+        else:
+            company.send_keys(trainNo[1])
         train_No = driver.find_element(By.CSS_SELECTOR, '#txtTrainNumber')
-        train_No.send_keys(trainNo[2:])
+        if trainNo[1:5] == 'SMRT':
+            train_No.send_keys(trainNo[5:])
+        else:
+            train_No.send_keys(trainNo[2:])
         find = driver.find_element(By.CSS_SELECTOR, '#btnDefault')
         find.click()
 
