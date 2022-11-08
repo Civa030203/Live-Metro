@@ -10,6 +10,7 @@ from IPython.display import clear_output
 import os
 from select_line import select_line
 from up_and_low import up_low_info
+from getLocation import getLocation
 
 class main:
     def start_options(url):
@@ -65,28 +66,28 @@ class main:
                             gwangmyeongText = '4량 편성'
                         except:
                             try:
-                                rapidText = '급행'
                                 trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultRedRapid > span > a').get_text()
+                                rapidText = '급행'
                             except:
                                 try:
-                                    commuterRapidText = '통근 급행'
                                     trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultCommuterRapid > span > a').get_text()
+                                    commuterRapidText = '통근 급행'
                                 except:
                                     try:
-                                        semiRapidText = '준급행'
                                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultSemiRapid > span > a').get_text()
+                                        semiRapidText = '준급행'
                                     except:
                                         try:
-                                            gyeonguiRapidText = '경의선 구간(문산 ~ 효창공원앞) 급행'
                                             trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGyeonguiRapid > span > a').get_text()
+                                            gyeonguiRapidText = '경의선 구간(문산 ~ 효창공원앞) 급행'
                                         except:
                                             try:
-                                                jungangRapidText = '중앙선 구간(용산 ~ 용문) 급행'
                                                 trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultJungangRapid > span > a').get_text()
+                                                jungangRapidText = '중앙선 구간(용산 ~ 용문) 급행'
                                             except:
                                                 try:
-                                                    rapidText = '경부1선 급행'
                                                     trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultGreenRapid > span > a').get_text()
+                                                    rapidText = '경부1선 급행'
                                                 except:
                                                     pass
                 elif id == 'tdResultSeoulMetro4':
@@ -149,6 +150,8 @@ class main:
                 except:
                     x += 1
             except:
+                if x == 1:
+                    print("운행하는 열차가 없습니다.")
                 break
 
     clear_output()
@@ -171,3 +174,4 @@ class main:
             info(info, url, driver, station, id, 'U', '상행', line_number)
         elif direction == '2':
             info(info, url, driver, station, id, 'D', '하행', line_number)
+    getLocation.process("#S104")
