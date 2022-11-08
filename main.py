@@ -53,6 +53,8 @@ class main:
                     dest = '청량리'
                 if dest == '지하서울역':
                     dest = '서울역'
+                if dest in ['내선순환', '외선순환']:
+                    pass
                 if dest == station:
                     dest = '당역종착'
                 else:
@@ -144,6 +146,8 @@ class main:
                         x += 1
                         if noDelayInfo:
                             print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
+                        if trainNo != '' and not noDelayInfo:
+                            getLocation.process(trainNo)
                         print('\n')
                     except:
                         x += 1
@@ -174,4 +178,3 @@ class main:
             info(info, url, driver, station, id, 'U', '상행', line_number)
         elif direction == '2':
             info(info, url, driver, station, id, 'D', '하행', line_number)
-    getLocation.process("#S104")
