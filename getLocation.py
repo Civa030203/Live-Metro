@@ -55,3 +55,25 @@ class getLocation():
             print(f'{trainLocation}역에 열차가 도착하였으며, {trainDelay}입니다.')
         else:
             print(f'{trainLocation}역과 {trainLocation2}역 사이를 운행 중이며, {trainDelay}입니다.')
+
+    def getDeparture(driver, trainNo):
+        url = 'https://rail.blue/railroad/logis/timetable.aspx'
+        driver.get(url)
+        company = driver.find_element(By.CSS_SELECTOR, '#txtTrainNo')
+        if trainNo[1:5] == 'SMRT':
+            company.send_keys(trainNo[1:5])
+        else:
+            company.send_keys(trainNo[1])
+        train_No = driver.find_element(By.CSS_SELECTOR, '#txtTrainNumber')
+        if trainNo[1:5] == 'SMRT':
+            train_No.send_keys(trainNo[5:])
+        else:
+            train_No.send_keys(trainNo[2:])
+        find = driver.find_element(By.CSS_SELECTOR, '#btnDefault')
+        find.click()
+
+        response = requests.get(url)
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+        departureStation = soup.select_one(f'#spDept > b > span > a').get_text()
+        return departureStation

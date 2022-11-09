@@ -47,6 +47,7 @@ class main:
                 gwangmyeongText = ''
                 trainNo = ''
                 dest = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdDest.tdLine > span.spMetroTrainDestination > span').get_text()
+
                 if dest == '광운대역':
                     dest = '광운대'
                 if dest == '지하청량리':
@@ -61,6 +62,7 @@ class main:
                     pass
                 else:
                     dest = dest + '행'
+
                 if id == 'tdResultMetroAllStop': # 1호선, 경의중앙선, 수인분당선 등 코레일 관할 노선
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetroAllStop > span > a').get_text()
@@ -146,7 +148,9 @@ class main:
                     try:
                         print(f'{dest} (열차번호 : {trainNo}) {rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText}{gwangmyeongText} 열차가 약 {estTime} 후에 {trainState}합니다.')
                         x += 1
-                        if noDelayInfo:
+                        if getLocation.getDeparture(driver, trainNo) == station:
+                            print('당역출발 열차의 경우 이전 열차의 지연 등으로 인하여 제대로 된 출발 시각 제공이 어려울 수 있습니다.')
+                        elif noDelayInfo:
                             print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
                         if trainNo != '' and not noDelayInfo:
                             getLocation.process(driver, trainNo)
