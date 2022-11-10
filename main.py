@@ -109,9 +109,14 @@ class main:
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetro9 > span > a').get_text()
                     except:
-                        isRapid = True
                         rapidText = '급행'
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultRedRapid > span > a').get_text()
+                elif id == 'tdResultAREXCommuter':
+                    try:
+                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultAREXCommuter > span > a').get_text()
+                    except:
+                        rapidText = '직통'
+                        trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultAREXExpress > span > a').get_text()
                 else:
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.{id} > span > a').get_text()

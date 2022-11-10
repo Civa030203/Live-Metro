@@ -77,4 +77,7 @@ class up_low_info():
         elif self == 'tdResultIncheonMetro2':
             up_and_low.append('검단오류')
             up_and_low.append('운연')
+        elif self == 'tdResultAREXCommuter':
+            up_and_low.append('서울')
+            up_and_low.append('검암 / 인천국제공항')
         return up_and_low

@@ -78,4 +78,5 @@ class select_line():
         elif self.line == 'arex':
             lines = self.find_element(By.CSS_SELECTOR, "#cmbDir > option:nth-child(2)")
             lines.click()
+            line_identifier = 'tdResultAREXCommuter'
         return line_identifier, self.line
