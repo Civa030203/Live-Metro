@@ -12,12 +12,13 @@ from select_line import select_line
 from up_and_low import up_low_info
 from getLocation import getLocation
 from searchStationInfo import searchStationInfo
+from webdriver_manager.chrome import ChromeDriverManager
 
 class main:
     def start_options(url):
         options = webdriver.ChromeOptions()
         options.add_argument("headless")
-        driver = webdriver.Chrome("/Applications/chromedriver", options = options)
+        driver = webdriver.Chrome("chromedriver", options = options)
         driver.get(url)
         return driver
 
@@ -199,6 +200,7 @@ class main:
                 elif direction == '2':
                     info(info, url, driver, station, id, 'D', '하행', line_number)
             a = input('Press any key to continue\n')
+
     elif sel == '2':
         while True:
             sel = input("호선을 선택해주세요.\n1. 수도권 전철 1호선\n2. 서울 지하철 2호선\n4. 수도권 전철 4호선\n")
