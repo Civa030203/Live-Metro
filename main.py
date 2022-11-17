@@ -170,7 +170,7 @@ class main:
                     print("운행하는 열차가 없습니다.")
                 break
 
-    sel = input('1. 실시간 지하철 도착 정보 조회\n2. 지하철 역 정보 조회(수도권 1, 2, 4호선 지원)\nexit. 프로그램 종료')
+    sel = input('1. 실시간 지하철 도착 정보 조회\n2. 지하철 역 정보 조회(수도권 1, 2, 4호선 지원)\nexit. 프로그램 종료\n선택 : ')
     if sel == '1':
         while True:
             try:
@@ -183,7 +183,7 @@ class main:
             id, line_number = select_line.process(driver)
             os.system('clear')
             clear_output()
-            station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n')
+            station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n1호선, 4호선 서울역의 경우, "지하서울역", 1호선 청량리역의 경우, "지하청량리"라고 입력하셔야 됩니다. "서울", "청량리" 입력 시 경의중앙선 서울역, 청량리역으로 검색됨.\n')
             if station == 'exit':
                 break
             find_start(driver, station)
