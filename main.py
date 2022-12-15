@@ -13,16 +13,15 @@ from up_and_low import up_low_info
 from getLocation import getLocation
 from searchStationInfo import searchStationInfo
 from webdriver_manager.chrome import ChromeDriverManager
+import traceback
+import logging
 
 class main:
     def start_options(url):
         options = webdriver.ChromeOptions()
         options.add_argument("--headless")
         options.add_argument("--disable-gpu")
-        try:
-            driver = webdriver.Chrome("chromedriver", options = options)
-        except:
-            driver = webdriver.Chrome(ChromeDriverManager().install(), options = options)
+        driver = webdriver.Chrome(ChromeDriverManager().install(), options = options)
         driver.get(url)
         return driver
 
