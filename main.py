@@ -187,7 +187,15 @@ class main:
             id, line_number = select_line.process(driver)
             os.system('clear')
             clear_output()
-            station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n1호선, 4호선 서울역의 경우, "지하서울역", 1호선 청량리역의 경우, "지하청량리"라고 입력하셔야 됩니다. "서울", "청량리" 입력 시 경의중앙선 서울역, 청량리역으로 검색됨.\n')
+            station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n')
+            if station == '청량리' and line_number == '1':
+                station = '지하청량리'
+            if station == '서울역' and line_number == '1':
+                station = '지하서울역'
+            if station == '서울역' and line_number in ['arex', 'gj']:
+                station = '서울'
+            if station == '총신대입구':
+                station = '이수'
             if station == 'exit':
                 break
             find_start(driver, station)
