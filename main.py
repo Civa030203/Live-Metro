@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 # -*- coding: euc-kr -*-
+# 코드가 너무 더럽다아아아,,,
 
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -26,7 +27,7 @@ class main:
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument("--single-process")
         chrome_options.add_argument("--disable-dev-shm-usage")
-        display = Display(visible=0, size= (800, 600))
+        display = Display(visible = 0, size = (800, 600))
         display.start()
         driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
         driver.get(url)
@@ -229,6 +230,7 @@ class main:
             find_start(driver, station)
             find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
             find.click()
+
             if line_number not in ["2", "8", "9", "sh", "gk", "dh", "ui", "sl", "ul", "ev"]:
                 destin = input('찾으시는 행선지가 있으신가요? 없으실 경우 "no"를 입력해주세요.\n입력 : ')
                 if destin == station:
@@ -237,6 +239,7 @@ class main:
                     destin = destin + '행'
             else:
                 destin = 'no행'
+
             if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']:
                 info(info, url, driver, station, id, 'D', '응암순환', line_number, destin)
             else:
@@ -246,6 +249,7 @@ class main:
                     info(info, url, driver, station, id, 'U', '상행', line_number, destin)
                 elif direction == '2':
                     info(info, url, driver, station, id, 'D', '하행', line_number, destin)
+                    
             a = input('Press any key to continue\n')
 
     elif sel == '2':
