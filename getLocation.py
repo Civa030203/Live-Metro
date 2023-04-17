@@ -14,13 +14,21 @@ class getLocation():
         url = 'https://rail.blue/railroad/logis/timetable.aspx'
         driver.get(url)
         company = driver.find_element(By.CSS_SELECTOR, '#txtTrainNo')
-        if trainNo[1:5] == 'SMRT':
+        if trainNo[1:5] == 'SMRT': # 서울도시철도(5~8호선)
             company.send_keys(trainNo[1:5])
+        elif trainNo[1] == 'C': # 9호선 일반
+            company.send_keys("SNC")
+        elif trainNo[1] == 'E': # 9호선 급행
+            company.send_keys("SNE")
         else:
             company.send_keys(trainNo[1])
         train_No = driver.find_element(By.CSS_SELECTOR, '#txtTrainNumber')
         if trainNo[1:5] == 'SMRT':
             train_No.send_keys(trainNo[5:])
+        elif trainNo[1] == 'C':
+            train_No.send_keys(trainNo[2:])
+        elif trainNo[1] == 'E':
+            train_No.send_keys(trainNo[2:])
         else:
             train_No.send_keys(trainNo[2:])
         find = driver.find_element(By.CSS_SELECTOR, '#btnDefault')
@@ -51,6 +59,15 @@ class getLocation():
         if trainLocation2 == '지하청량리':
             trainLocation2 = '청량리'
 
+        if trainLocation == '덕계' and trainLocation2 == '마전':
+            trainLocation2 = '양주'
+        if trainLocation == '마전' and trainLocation2 == '덕계':
+            trainLocation = '양주'
+        if trainLocation == '양주' and trainLocation2 == '마전':
+            trainLocation2 == '덕계'
+        if trainLocation == '마전' and trainLocation2 == '양주':
+            trainLocation = '덕계'
+
         if trainLocation2 == '':
             print(f'{trainLocation}역에 열차가 도착하였으며, {trainDelay}입니다.')
         else:
@@ -62,11 +79,19 @@ class getLocation():
         company = driver.find_element(By.CSS_SELECTOR, '#txtTrainNo')
         if trainNo[1:5] == 'SMRT':
             company.send_keys(trainNo[1:5])
+        elif trainNo[1] == 'C':
+            company.send_keys("SNC")
+        elif trainNo[1] == 'E':
+            company.send_keys("SNE")
         else:
             company.send_keys(trainNo[1])
         train_No = driver.find_element(By.CSS_SELECTOR, '#txtTrainNumber')
         if trainNo[1:5] == 'SMRT':
             train_No.send_keys(trainNo[5:])
+        elif trainNo[1] == 'C':
+            train_No.send_keys(trainNo[2:])
+        elif trainNo[1] == 'E':
+            train_No.send_keys(trainNo[2:])
         else:
             train_No.send_keys(trainNo[2:])
         find = driver.find_element(By.CSS_SELECTOR, '#btnDefault')

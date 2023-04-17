@@ -2,39 +2,25 @@
 # -*- coding: euc-kr -*-
 
 from bs4 import BeautifulSoup
-import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 from IPython.display import clear_output
-import os
+from pyvirtualdisplay import Display
+
+from webdriver_manager.chrome import ChromeDriverManager
 from select_line import select_line
 from up_and_low import up_low_info
 from getLocation import getLocation
 from searchStationInfo import searchStationInfo
-from webdriver_manager.chrome import ChromeDriverManager
+from initProcess import *
+
+import requests
+import time
+import os
 import traceback
 import logging
 
 class main:
-    def start_options(url):
-        options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
-        options.add_argument("--disable-gpu")
-        driver = webdriver.Chrome(ChromeDriverManager().install(), options = options)
-        driver.get(url)
-        return driver
-
-    def find_start(driver, station):
-        find_timetable = driver.find_element(By.CSS_SELECTOR, '#txtStation')
-        find_timetable.send_keys(station)
-        other_trains = driver.find_element(By.CSS_SELECTOR, '#chkTrainTypeETC')
-        other_trains.click()
-        new_window = driver.find_element(By.CSS_SELECTOR, '#chkNewWindow')
-        #new_window.click()
-        pass_train = driver.find_element(By.CSS_SELECTOR, '#chkSkip')
-        #pass_train.click()
-
     def info(self, url, driver, station, id, dir, dirkor, line_number):
         print(f'{station}역의 {dirkor}선 도착 정보', '\n')
         time.sleep(1)
@@ -183,28 +169,42 @@ class main:
             except:
                 os.system('cls')
             url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
-            driver = start_options(url)
+            driver = initProcess.start_options(url)
             id, line_number = select_line.process(driver)
+            if line_number == 'exit':
+                break
             os.system('clear')
             clear_output()
             station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n')
-            if station == '청량리' and line_number == '1':
-                station = '지하청량리'
-            if station == '서울역' and line_number == '1':
+            if station in ['서울', '서울역'] and line_number == '1':
                 station = '지하서울역'
-            if station == '서울역' and line_number in ['arex', 'gj']:
-                station = '서울'
-            if station == '총신대입구':
-                station = '이수'
-            if station == 'exit':
+            elif station == '청량리' and line_number == '1':
+                station = '지하청량리'
+            elif station == '수원' and line_number == 'sub':
+                station = '지하수원'
+            elif station == '인천' and line_number == 'sub':
+                station = '지하인천'
+            elif station == 'exit':
                 break
-            find_start(driver, station)
+            initProcess.find_start(driver, station)
             find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
             find.click()
+
+            if line_number not in ["2", "8", "9", "sh", "gk", "dh", "ui", "sl", "ul", "ev"]:
+                destin = input('찾으시는 행선지가 있으신가요? 없으실 경우 빈 칸으로 두고 엔터를 눌러주세요.\n입력 : ')
+                if destin == station:
+                    destin = '당역종착'
+                elif destin == '':
+                    destin = 'no행'
+                else:
+                    destin = destin + '행'
+            else:
+                destin = 'no행'
+
             if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']:
                 info(info, url, driver, station, id, 'D', '응암순환', line_number)
             else:
-                ulinfo = up_low_info.process(id, line_number)
+                ulinfo = up_low_info.process(id, line_number, station)
                 direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
                 if direction == '1':
                     info(info, url, driver, station, id, 'U', '상행', line_number)
@@ -214,7 +214,7 @@ class main:
 
     elif sel == '2':
         while True:
-            sel = input("호선을 선택해주세요.\n1. 수도권 전철 1호선\n2. 서울 지하철 2호선\n4. 수도권 전철 4호선\n")
+            sel = input("호선을 선택해주세요.\n1. 수도권 전철 1호선\n2. 서울 지하철 2호선\n3. 수도권 전철 3호선\n4. 수도권 전철 4호선\n")
             searchStationInfo.process(sel)
             a = input('Press any key to continue\n')
             if sel == 'exit':
