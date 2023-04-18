@@ -1,3 +1,9 @@
+import time
+import requests
+
+from bs4 import BeautifulSoup
+from getLocation import getLocation
+
 class info():
     def run(self, url, driver, station, id, dir, dirkor, line_number, destin):
         if destin != "no행":
@@ -42,7 +48,7 @@ class info():
                 if id == 'tdResultMetroAllStop': # 1호선, 경의중앙선, 수인분당선 등 코레일 관할 노선
                     try:
                         trainNo = soup.select_one(f'#tblTrainList{dir} > tbody > tr:nth-child({x}) > td.tdTrainNo.tdLine.tdResultMetroAllStop > span > a').get_text()
-                        if trainNo[:3] == '#K2':
+                        if trainNo[:3] == '#K2' and line_number == 'gj':
                             gwangmyeongText = '4량 편성'
                     except:
                         try:
@@ -139,6 +145,7 @@ class info():
                                 print('당역출발 열차의 경우 이전 열차의 지연 등으로 인하여 제대로 된 출발 시각 제공이 어려울 수 있습니다.')
                             elif noDelayInfo:
                                 print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
+                                getLocation.process(driver, trainNo)
                             if trainNo != '' and not noDelayInfo:
                                 getLocation.process(driver, trainNo)
                             print('\n')
