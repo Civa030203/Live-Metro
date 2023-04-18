@@ -51,12 +51,9 @@ class up_low_info():
             elif station in ['세마', '오산대', '진위', '송탄', '평택지제', '직산']: # 경부선 세마 ~ 천안 급행 통과역
                 up_and_low.append('청량리(광운대)')
                 up_and_low.append('천안(신창)')
-<<<<<<< HEAD
-=======
             elif station == '광명': # 경부고속선 광명역
                 up_and_low.append('영등포')
                 up_and_low.append('광명')
->>>>>>> 1a4e758c7799d61acc9801bfb12a267c66165451
             else: # 장항선 봉명 ~ 신창 구간
                 up_and_low.append('청량리(광운대)')
                 up_and_low.append('신창')
