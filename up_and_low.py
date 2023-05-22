@@ -9,7 +9,10 @@ class up_low_info():
     def process(self, line_number, station):
         up_and_low = []
         if line_number == '1':
-            if station in ['소요산', '동두천', '보산', '동두천중앙', '지행', '덕정', '덕계']: # 경원선 소요산 ~ 덕계 구간
+            if station == "소요산":
+                up_and_low.append('소요산')
+                up_and_low.append('인천 / 광운대')
+            if station in ['동두천', '보산', '동두천중앙', '지행', '덕정', '덕계']: # 경원선 소요산 ~ 덕계 구간
                 up_and_low.append('동두천(소요산)')
                 up_and_low.append('인천 / 광운대')
             elif station in ['양주', '녹양', '가능', '의정부', '회룡', '망월사', '도봉산', '도봉', '방학', '창동', '녹천', '월계']: # 경원선 양주 ~ 월계 구간
