@@ -68,13 +68,13 @@ class main:
                 find.click()
 
                 if line_number not in ["2", "8", "9", "sh", "gk", "dh", "ui", "sl", "ul", "ev"]:
-                        destin = input('찾으시는 행선지가 있으신가요? 없으실 경우 빈 칸으로 두고 엔터를 눌러주세요.\n입력 : ')
-                        if destin == station:
-                            destin = '당역종착'
-                        elif destin == '':
-                            destin = 'no행'
-                        else:
-                            destin = destin + '행'
+                    destin = input('찾으시는 행선지가 있으신가요? 없으실 경우 빈 칸으로 두고 엔터를 눌러주세요.\n입력 : ')
+                    if destin == station:
+                        destin = '당역종착'
+                    elif destin == '':
+                        destin = 'no행'
+                    else:
+                        destin = destin + '행'
                 else:
                     destin = 'no행'
 
