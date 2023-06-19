@@ -18,7 +18,6 @@ from info import *
 
 import requests
 import time
-import timestamp
 import os
 import traceback
 import logging
