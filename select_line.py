@@ -5,7 +5,6 @@ from bs4 import BeautifulSoup
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-import time
 
 class select_line():
     def __init__(self, driver):
@@ -13,9 +12,7 @@ class select_line():
         self.line = 0
 
     def process(self):
-        tm = time.localtime(time.time())
         self.line = input('정보를 조회할 역은 무슨 노선인가요?\n1. 수도권 전철 1호선\n2. 서울 지하철 2호선\n3. 수도권 전철 3호선\n4. 수도권 전철 4호선\n5. 수도권 전철 5호선\n6. 서울 지하철 6호선\n7. 서울 지하철 7호선\n8. 서울 지하철 8호선\n9. 서울 지하철 9호선\ngj. 수도권 전철 경의중앙선\nsub. 수도권 전철 수인분당선\nkc. 수도권 전철 경춘선\nsh. 수도권 전철 서해선\ngk. 수도권 전철 경강선\ndh. 동해선 광역철도\nsb. 수도권 전철 신분당선\nui. 서울 경전철 우이신설선\nsl. 서울 경전철 신림선\ngl. 김포 골드라인\nul. 의정부 경전철\nev. 용인 에버라인\nicn1. 인천 지하철 1호선\nicn2. 인천 지하철 2호선\narex. 공항철도\nback: 첫 화면으로\n선택 : ')
-        print(tm.tm_hour)
         if self.line in ['1', 'gj', 'sub', 'kc', 'sh', 'gk', 'dh']:
             lines = self.find_element(By.CSS_SELECTOR, "#cmbDir > option:nth-child(3)")
             lines.click()
