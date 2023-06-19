@@ -18,6 +18,7 @@ from info import *
 
 import requests
 import time
+import timestamp
 import os
 import traceback
 import logging
@@ -32,6 +33,8 @@ class main:
                     os.system('clear')
                 except:
                     os.system('cls')
+                tm = time.localtime(time.time())
+                print(tm.tm_hour)
                 print("정보 제공 사이트에 연결 중입니다... 잠시만 기다려 주세요.")
                 url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
                 driver = initProcess.start_options(url)
