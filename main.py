@@ -33,7 +33,7 @@ class main:
                 except:
                     os.system('cls')
                 tm = time.localtime(time.time())
-                if tm.tm_hour >= 16 or tm.tm_hour <= 20:
+                if 16 <= tm.tm_hour <= 20:
                     print("지하철 운행 시간이 아닙니다. 운행 시간 중 이용 부탁드리겠습니다.\n운행 시간 : (서울교통공사) - 오전 5:30 ~ 익일 01시(주중) / 익일 자정(주말 및 공휴일)\n(한국철도공사) - 오전 5:00 ~ 익일 0시 30분")
                     break
                 print("정보 제공 사이트에 연결 중입니다... 잠시만 기다려 주세요.")
