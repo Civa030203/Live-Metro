@@ -139,15 +139,18 @@ class info():
                     try:
                         if destin == dest or destin == "no행":
                             print(f'{dest} (열차번호 : {trainNo}) {gwangmyeongText}{rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText} 열차가 약 {estTime} 후에 {trainState}합니다.')
-                            x += 1
-                            count += 1
                             if getLocation.getDeparture(driver, trainNo) == station:
                                 print('당역출발 열차의 경우 이전 열차의 지연 등으로 인하여 제대로 된 출발 시각 제공이 어려울 수 있습니다.')
+                                x += 1
+                                count += 1
                             elif noDelayInfo:
-                                print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.')
+                                print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.\n')
                                 getLocation.process(driver, trainNo)
+                                x += 1
                             if trainNo != '' and not noDelayInfo:
                                 getLocation.process(driver, trainNo)
+                                x += 1
+                                count += 1
                             print('\n')
                         else:
                             x += 1

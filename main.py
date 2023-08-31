@@ -33,7 +33,7 @@ class main:
                 except:
                     os.system('cls')
                 tm = time.localtime(time.time())
-                if 16 <= tm.tm_hour <= 20:
+                if 1 <= tm.tm_hour < 5:
                     print("지하철 운행 시간이 아닙니다. 운행 시간 중 이용 부탁드리겠습니다.\n운행 시간 : (서울교통공사) - 오전 5:30 ~ 익일 01시(주중) / 익일 자정(주말 및 공휴일)\n(한국철도공사) - 오전 5:00 ~ 익일 0시 30분")
                     break
                 print("정보 제공 사이트에 연결 중입니다... 잠시만 기다려 주세요.")
@@ -83,7 +83,7 @@ class main:
                     destin = 'no행'
 
                 if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']: # 응암순환 구간 예외처리
-                    info.run(info, url, driver, station, id, 'D', '응암순환', line_number)
+                    info.run(info, url, driver, station, id, 'D', '응암순환', line_number, 'no행')
                 else:
                     ulinfo = up_low_info.process(id, line_number, station)
                     direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
