@@ -246,6 +246,7 @@ class up_low_info():
         elif self == 'tdResultSMRT6':
             up_and_low.append('응암')
             up_and_low.append('봉화산(신내)')
+
         elif self == 'tdResultSMRT7':
             if station in ['까치울', '부천종합운동장', '춘의', '신중동', '부천시청', '상동', '삼산체육관', '굴포천', '부평구청', '산곡', '석남']:
                 up_and_low.append('도봉산(장암)')
