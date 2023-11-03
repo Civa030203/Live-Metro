@@ -271,8 +271,8 @@ class stn():
     },
 
     {
-    'KRName' : '혜화(서울대학교병원)',
-    'ENName' : "Hyehwa(Seoul Nat'l Univ. Hospital)",
+    'KRName' : '혜화',
+    'ENName' : "Hyehwa",
     'Num' : '420',
     'Transfer' : 'No',
     'Doors' : '오른쪽',
@@ -505,8 +505,8 @@ class stn():
     },
 
     {
-    'KRName' : '사당(대항병원)',
-    'ENName' : 'Sadang(Daehang Hospital)',
+    'KRName' : '사당',
+    'ENName' : 'Sadang',
     'Num' : '433',
     'Transfer' : '2호선',
     'Doors' : '왼쪽',
@@ -688,9 +688,9 @@ class stn():
     'KRName' : '범계',
     'ENName' : 'Beomgye',
     'Num' : '442',
-    'Transfer' : 'No',
+    'Transfer' : 'None',
     'Doors' : '왼쪽',
-    'Terminal' : 'No',
+    'Terminal' : 'emergency',
     'nextStop' : '평촌',
     'nextToward' : '당고개',
     'nextDistance' : '1.3km',

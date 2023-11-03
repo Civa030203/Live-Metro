@@ -138,15 +138,19 @@ class info():
 
                     try:
                         if destin == dest or destin == "no행":
-                            print(f'{dest} (열차번호 : {trainNo}) {gwangmyeongText}{rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText} 열차가 약 {estTime} 후에 {trainState}합니다.')
+                            print('----------')
+                            print(f'{trainNo} ({dest}) {gwangmyeongText}{rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText} 열차')
                             if getLocation.getDeparture(driver, trainNo) == station:
-                                print('당역출발 열차의 경우 이전 열차의 지연 등으로 인하여 제대로 된 출발 시각 제공이 어려울 수 있습니다.')
+                                print(f'약 {estTime} 후에 {trainState} 예정 (시각표 기준)')
+                                print(f'{getLocation.getDeparture(driver, trainNo)}역 대기 중\n')
                                 x += 1
                                 count += 1
                             elif noDelayInfo:
-                                print('지연정보가 등록되지 않은 열차입니다. 시간표 기준으로 추정한 예상 시간이니 정확하지 않을 수 있습니다.\n')
+                                print(f'약 {estTime} 후에 {trainState} 예정 (시각표 기준)')
                                 getLocation.process(driver, trainNo)
                                 x += 1
+                            else:
+                                print(f'약 {estTime} 후에 {trainState} 예정')
                             if trainNo != '' and not noDelayInfo:
                                 getLocation.process(driver, trainNo)
                                 x += 1
@@ -155,6 +159,12 @@ class info():
                         else:
                             x += 1
                     except:
+                        deptStation = getLocation.getDeparture(driver, trainNo)
+                        if deptStation == '지하서울역':
+                            deptStation = '서울'
+                        if deptStation == '지하청량리':
+                            deptStation = '청량리'
+                        print(f'{deptStation}역 대기 중\n')
                         x += 1
                 except:
                     x += 1

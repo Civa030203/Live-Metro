@@ -22,6 +22,7 @@ class getLocation():
             company.send_keys("SNE")
         else:
             company.send_keys(trainNo[1])
+
         train_No = driver.find_element(By.CSS_SELECTOR, '#txtTrainNumber')
         if trainNo[1:5] == 'SMRT':
             train_No.send_keys(trainNo[5:])
@@ -39,6 +40,8 @@ class getLocation():
 
         try:
             trainDelay = soup.select_one('#spDrive > span').get_text()
+            if trainDelay == "운행중":
+                trainDelay = "지연 정보 확인 안 됨"
         except:
             trainDelay = '지연 상태가 확인 안됨'
 
@@ -69,9 +72,9 @@ class getLocation():
             trainLocation = '덕계'
 
         if trainLocation2 == '':
-            print(f'{trainLocation}역에 열차가 도착하였으며, {trainDelay}입니다.')
+            print(f'{trainLocation}역 도착, {trainDelay}')
         else:
-            print(f'{trainLocation}역과 {trainLocation2}역 사이를 운행 중이며, {trainDelay}입니다.')
+            print(f'{trainLocation}역 - {trainLocation2}역, {trainDelay}')
 
     def getDeparture(driver, trainNo):
         url = 'https://rail.blue/railroad/logis/timetable.aspx'

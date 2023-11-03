@@ -23,8 +23,13 @@ import traceback
 import logging
 
 class main:
+    lang = input('Please Choose your Language\n1. 한국어\n2. English\nSel : ')
+    if lang == "1":
+        from languagePackKr import langKr as text
+    else:
+        from languagePackEn import langEn as text
     while True:
-        sel = input('1. 실시간 지하철 도착 정보 조회\n2. 지하철 역 정보 조회(수도권 1 ~ 4호선 지원)\nexit. 프로그램 종료\n선택 : ')
+        sel = input(text.CHOOSE_THE_MENU)
         if sel == '1':
             while True:
                 try:
@@ -34,9 +39,9 @@ class main:
                     os.system('cls')
                 tm = time.localtime(time.time())
                 if 1 <= tm.tm_hour < 5:
-                    print("지하철 운행 시간이 아닙니다. 운행 시간 중 이용 부탁드리겠습니다.\n운행 시간 : (서울교통공사) - 오전 5:30 ~ 익일 01시(주중) / 익일 자정(주말 및 공휴일)\n(한국철도공사) - 오전 5:00 ~ 익일 0시 30분")
+                    print(text.NOT_A_SERVICE_TIME)
                     break
-                print("정보 제공 사이트에 연결 중입니다... 잠시만 기다려 주세요.")
+                print(text.CONNECTING_TO_WEB)
                 url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
                 driver = initProcess.start_options(url)
                 try:
@@ -54,7 +59,7 @@ class main:
                     break
                 os.system('clear')
                 clear_output()
-                station = input('역 이름을 입력해주세요. "exit" 입력 시 프로그램이 종료됩니다.\n')
+                station = input(text.INPUT_A_STATION)
                 if station in ['서울', '서울역'] and line_number in ['1', '4']:
                     station = '지하서울역'
                 elif station == '청량리' and line_number == '1':
