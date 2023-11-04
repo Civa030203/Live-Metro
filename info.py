@@ -136,7 +136,7 @@ class info():
                     if id == 'tdResultSeoulMetro2':
                         trainNo = '#S' + trainNo[1:5]
 
-                    if trainNo[2] == "5" and line_number == "gj" or trainNo[2] == "7" and line_number == "sh" or trainNo[2] == "6" and line_number == "sub":
+                    if line_number not in ["gj", "sub", "sh"]:
                         try:
                             deptStation = getLocation.getDeparture(driver, trainNo)
                             if deptStation == '지하서울역':
@@ -169,6 +169,40 @@ class info():
                         except:
                             print(f'{deptStation}역 대기 중\n')
                             x += 1
+                    elif trainNo[2] == "5" and line_number == "gj" or trainNo[2] == "7" and line_number == "sh" or trainNo[2] == "6" and line_number == "sub":
+                        try:
+                            deptStation = getLocation.getDeparture(driver, trainNo)
+                            if deptStation == '지하서울역':
+                                deptStation = '서울'
+                            if deptStation == '지하청량리':
+                                deptStation = '청량리'
+                            if deptStation == '지하인천':
+                                deptStation = '인천'
+                            if destin == dest or destin == "no행":
+                                print('----------')
+                                print(f'{trainNo} ({dest}) {gwangmyeongText}{rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText} 열차')
+                                if deptStation == station:
+                                    print(f'약 {estTime} 후에 {trainState} 예정 (시각표 기준)')
+                                    print(f'{deptStation}역 대기 중\n')
+                                    x += 1
+                                    count += 1
+                                elif noDelayInfo:
+                                    print(f'약 {estTime} 후에 {trainState} 예정 (시각표 기준)')
+                                    getLocation.process(driver, trainNo)
+                                    x += 1
+                                else:
+                                    print(f'약 {estTime} 후에 {trainState} 예정')
+                                if trainNo != '' and not noDelayInfo:
+                                    getLocation.process(driver, trainNo)
+                                    x += 1
+                                    count += 1
+                                print('\n')
+                            else:
+                                x += 1
+                        except:
+                            print(f'{deptStation}역 대기 중\n')
+                            x += 1
+
                     else:
                         x += 1
                 except:
