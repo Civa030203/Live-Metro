@@ -137,14 +137,20 @@ class up_low_info():
                 up_and_low.append('춘천')
 
         elif line_number == 'sh':
-            up_and_low.append('소사')
-            up_and_low.append('원시')
+            if station in ['곡산', '백마', '풍산', '일산']: # 경의선 공용구간
+                up_and_low.append('일산')
+                up_and_low.append('원시')
+            else:
+                up_and_low.append('대곡(일산)')
+                up_and_low.append('원시')
+
         elif line_number == 'gk':
             up_and_low.append('판교')
             up_and_low.append('여주')
         elif line_number == 'dh':
             up_and_low.append('부전')
             up_and_low.append('태화강')
+
         elif self == 'tdResultSeoulMetro2':
             if station in ['용답', '신답', '용두', '신설동']:
                 up_and_low.append('신설동')
