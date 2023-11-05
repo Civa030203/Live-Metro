@@ -136,7 +136,7 @@ class info():
                     if id == 'tdResultSeoulMetro2':
                         trainNo = '#S' + trainNo[1:5]
 
-                    if line_number not in ["gj", "sub", "sh"]:
+                    if line_number not in ["gj", "sub", "sh", "kc"]:
                         try:
                             deptStation = getLocation.getDeparture(driver, trainNo)
                             if deptStation == '지하서울역':
@@ -169,7 +169,7 @@ class info():
                         except:
                             print(f'{deptStation}역 대기 중\n')
                             x += 1
-                    elif trainNo[2] == "5" and line_number == "gj" or trainNo[2] == "7" and line_number == "sh" or trainNo[2] == "6" and line_number == "sub":
+                    elif trainNo[2] == "5" and line_number == "gj" or trainNo[2] == "7" and line_number == "sh" or trainNo[2] == "6" and line_number == "sub" or trainNo[2] == "8" and line_number == "kc":
                         try:
                             deptStation = getLocation.getDeparture(driver, trainNo)
                             if deptStation == '지하서울역':
@@ -202,7 +202,6 @@ class info():
                         except:
                             print(f'{deptStation}역 대기 중\n')
                             x += 1
-
                     else:
                         x += 1
                 except:

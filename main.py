@@ -13,6 +13,7 @@ from select_line import select_line
 from up_and_low import up_low_info
 from getLocation import getLocation
 from searchStationInfo import searchStationInfo
+from get_destin import get_destin
 from initProcess import *
 from info import *
 
@@ -65,13 +66,15 @@ class main:
                     station = '지하인천'
                 elif station == '총신대입구':
                     station = '이수'
+                elif station == '서울역' and line_number in ['gj', 'arex']:
+                    station = "서울"
                 elif station == 'exit':
                     break
                 initProcess.find_start(driver, station)
                 find = driver.find_element(By.CSS_SELECTOR, '#btnSubmit')
                 find.click()
 
-                if line_number not in ["2", "8", "9", "sh", "gk", "dh", "ui", "sl", "ul", "ev"]:
+                if line_number not in ["2", "8", "9", "gk", "dh", "ui", "sl", "ul", "ev"]:
                     destin = input('찾으시는 행선지가 있으신가요? 없으실 경우 빈 칸으로 두고 엔터를 눌러주세요.\n입력 : ')
                     if destin == station:
                         destin = '당역종착'
@@ -81,12 +84,16 @@ class main:
                         destin = destin + '행'
                 else:
                     destin = 'no행'
+                dirt = get_destin.run(station, line_number, destin)
 
                 if id == 'tdResultSMRT6' and station in ['역촌', '불광', '독바위', '연신내', '구산']: # 응암순환 구간 예외처리
                     info.run(info, url, driver, station, id, 'D', '응암순환', line_number, 'no행')
                 else:
                     ulinfo = up_low_info.process(id, line_number, station)
-                    direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
+                    if dirt == None:
+                        direction = input(f'방향을 선택해주세요.\n1. 상행({ulinfo[0]} 방면)\n2. 하행({ulinfo[1]} 방면)\n선택 : ')
+                    else:
+                        direction = dirt
                     if direction == '1':
                         info.run(info, url, driver, station, id, 'U', '상행', line_number, destin)
                     elif direction == '2':
