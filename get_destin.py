@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 class get_destin():
     def run(station, line_number, destin):
         if line_number == "1":
-            if destin in ["소요산행", "동두천행", "양주행", "의정부행", "청량리행", "동묘앞", "서울행", "용산행", "영등포행"]: # 상행 전용 행선
+            if destin in ["연천행", "소요산행", "동두천행", "양주행", "의정부행", "청량리행", "동묘앞", "서울행", "용산행", "영등포행"]: # 상행 전용 행선
                 return '1'
             elif destin in ["부평행", "동인천행", "인천행", "광명행", "서동탄행", "신창행"]: # 하행 전용 행선
                 return '2'

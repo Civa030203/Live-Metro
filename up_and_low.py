@@ -9,32 +9,32 @@ class up_low_info():
     def process(self, line_number, station):
         up_and_low = []
         if line_number == '1':
-            if station == "소요산":
-                up_and_low.append('소요산')
+            if station in ['연천', '전곡', '청산']:
+                up_and_low.append('연천')
                 up_and_low.append('인천 / 광운대')
-            if station in ['동두천', '보산', '동두천중앙', '지행', '덕정', '덕계']: # 경원선 소요산 ~ 덕계 구간
-                up_and_low.append('동두천(소요산)')
+            elif station in ['소요산', '동두천', '보산', '동두천중앙', '지행', '덕정', '덕계']: # 경원선 소요산 ~ 덕계 구간
+                up_and_low.append('연천 / 동두천(소요산)')
                 up_and_low.append('인천 / 광운대')
             elif station in ['양주', '녹양', '가능', '의정부', '회룡', '망월사', '도봉산', '도봉', '방학', '창동', '녹천', '월계']: # 경원선 양주 ~ 월계 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주)')
                 up_and_low.append('인천 / 광운대')
             elif station in ['광운대', '석계', '신이문', '외대앞', '회기']: # 경원선 광운대 ~ 회기 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주) / 광운대')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주) / 광운대')
                 up_and_low.append('인천 / 서동탄 / 천안(신창)')
             elif station in ['지하청량리', '제기동', '신설동', '동묘앞', '동대문', '종로5가', '종로3가', '종각', '시청', '지하서울역', '남영']: # 서울 지하철 1호선 + 남영역
-                up_and_low.append('동두천(소요산) / 의정부(양주) / 청량리(광운대)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주) / 청량리(광운대)')
                 up_and_low.append('인천 / 서동탄 / 천안(신창)')
             elif station in ['용산', '노량진', '대방', '신길', '영등포', '신도림', '구로']: # 경부선 용산 + 구로 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주) / 청량리(광운대) / 용산(급행)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주) / 청량리(광운대) / 용산(급행)')
                 up_and_low.append('인천(동인천급행) / 서동탄(병점) / 천안(신창)')
             elif station in ['구일', '오류동', '온수', '소사', '중동', '부개', '백운', '간석', '도화', '도원']: # 경인선 급행 미정차역 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주)')
                 up_and_low.append('인천')
             elif station in ['개봉', '역곡', '부천', '송내', '부평', '동암', '주안', '제물포']: # 경인선 급행 정차역 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주) / 용산(급행)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주) / 용산(급행)')
                 up_and_low.append('인천(동인천급행)')
             elif station in ['동인천', '인천']: # 경인선 급행 없는 구간
-                up_and_low.append('동두천(소요산) / 의정부(양주) / 용산(급행)')
+                up_and_low.append('연천 / 동두천(소요산) / 의정부(양주) / 용산(급행)')
                 up_and_low.append('인천')
             elif station in ['가산디지털단지', '금정', '의왕']: # 경부선 가산디지털단지 ~ 병점 급행 정차역 구간
                 up_and_low.append('청량리(광운대)')
