@@ -15,8 +15,8 @@ class initProcess():
         #display = Display(visible=0, size= (800, 600))
         #display.start()
         #driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro-main/chromedriver',  options = chrome_options)
-        service = ChromeService(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service, options = chrome_options)
+        service = Service(executable_path=ChromeDriverManager().install())
+        driver = webdriver.Chrome(service = service, options = chrome_options)
         driver.get(url)
         return driver
 
