@@ -40,10 +40,10 @@ class getLocation():
 
         try:
             trainDelay = soup.select_one('#spDrive > span').get_text()
-            if trainDelay == "운행중":
+            if trainDelay == "운행중":
                 trainDelay = "지연 정보 확인 안 됨"
         except:
-            trainDelay = '지연 상태가 확인 안됨'
+            trainDelay = '지연 상태가 확인 안 됨'
 
         trainLocation = soup.select_one('#spDrive > b > span > a').get_text()
 
