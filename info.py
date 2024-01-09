@@ -150,7 +150,8 @@ class info():
                                 print(f'{trainNo} ({dest}) {gwangmyeongText}{rapidText}{semiRapidText}{commuterRapidText}{gyeonguiRapidText}{jungangRapidText} 열차')
                                 if deptStation == station:
                                     print(f'약 {estTime} 후에 {trainState} 예정 (시각표 기준)')
-                                    print(f'{deptStation}역 대기 중\n')
+                                    if deptStation == station and station not in ['성수', '신도림']:
+                                        print(f'{deptStation}역 대기 중\n')
                                     x += 1
                                     count += 1
                                 elif noDelayInfo:
