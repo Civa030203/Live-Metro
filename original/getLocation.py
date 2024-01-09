@@ -56,11 +56,15 @@ class getLocation():
             trainLocation = '서울'
         if trainLocation == '지하청량리':
             trainLocation = '청량리'
+        if trainLocation == '지하수원':
+            trainLocation = '수원'
 
         if trainLocation2 == '지하서울역':
             trainLocation2 = '서울'
         if trainLocation2 == '지하청량리':
             trainLocation2 = '청량리'
+        if trainLocation == '지하수원':
+            trainLocation = '수원'
 
         if trainLocation == '덕계' and trainLocation2 == '마전':
             trainLocation2 = '양주'
