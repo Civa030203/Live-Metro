@@ -40,7 +40,7 @@ class getLocation():
 
         try:
             trainDelay = soup.select_one('#spDrive > span').get_text()
-            if trainDelay == "운행중":
+            if trainDelay == "운행중":
                 trainDelay = "지연 정보 확인 안 됨"
         except:
             trainDelay = '지연 상태가 확인 안됨'
@@ -56,11 +56,15 @@ class getLocation():
             trainLocation = '서울'
         if trainLocation == '지하청량리':
             trainLocation = '청량리'
+        if trainLocation == '지하수원'
+            trainLocation = '수원'
 
         if trainLocation2 == '지하서울역':
             trainLocation2 = '서울'
         if trainLocation2 == '지하청량리':
             trainLocation2 = '청량리'
+        if trainLocation == '지하수원'
+            trainLocation = '수원'
 
         if trainLocation == '덕계' and trainLocation2 == '마전':
             trainLocation2 = '양주'
