@@ -231,11 +231,11 @@ class up_low_info():
             if station in ['진접', '오남', '별내별가람']: # 진접선 구간
                 up_and_low.append('진접')
                 up_and_low.append('사당')
-            elif station in ['당고개', '상계', '노원', '창동', '쌍문', '수유', '미아', '미아사거리', '길음', '성신여대입구', '한성대입구', '혜화', '동대문', '동대문역사문화공원', '충무로', '명동', '회현', '지하서울역', '숙대입구', '삼각지', '신용산', '이촌', '동작', '이수', '사당']: # 서울 지하철 4호선 전구간(남태령 제외)
-                up_and_low.append('당고개(진접)')
+            elif station in ['불암산', '상계', '노원', '창동', '쌍문', '수유', '미아', '미아사거리', '길음', '성신여대입구', '한성대입구', '혜화', '동대문', '동대문역사문화공원', '충무로', '명동', '회현', '지하서울역', '숙대입구', '삼각지', '신용산', '이촌', '동작', '이수', '사당']: # 서울 지하철 4호선 전구간(남태령 제외)
+                up_and_low.append('불암산 (구 당고개) / 진접')
                 up_and_low.append('사당 / 오이도')
             else: # 서울 지하철 4호선 남태령역, 과천선, 안산선 구간
-                up_and_low.append('당고개')
+                up_and_low.append('불암산 (구 당고개)')
                 up_and_low.append('오이도')
 
         elif self == 'tdResultSMRT5':
@@ -265,7 +265,7 @@ class up_low_info():
                 up_and_low.append('온수 / 석남')
 
         elif self == 'tdResultSMRT8':
-            up_and_low.append('암사')
+            up_and_low.append('별내')
             up_and_low.append('모란')
         elif self == 'tdResultMetro9':
             up_and_low.append('중앙보훈병원')

@@ -5,7 +5,8 @@ from bs4 import BeautifulSoup
 from getLocation import getLocation
 
 class info():
-    def run(self, url, driver, station, id, dir, dirkor, line_number, destin):
+    def run(self, driver, station, id, dir, dirkor, line_number, destin):
+        url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
         if destin != "no행":
             print(f'{station}역의 {dirkor}선 {destin} 도착 정보', '\n')
         else:

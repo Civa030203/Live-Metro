@@ -6,7 +6,8 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 
 class initProcess():
-    def start_options(url):
+    def start_options():
+        url = "https://rail.blue/railroad/logis/metroarriveinfo.aspx"
         chrome_options = ChromeOptions()
         chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
@@ -18,7 +19,7 @@ class initProcess():
         try:
             driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
         except:
-            driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro-main/chromedriver',  options = chrome_options)
+            driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro/chromedriver',  options = chrome_options)
         driver.get(url)
         return driver
 
