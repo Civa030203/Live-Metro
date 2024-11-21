@@ -14,9 +14,11 @@ class initProcess():
         chrome_options.add_argument("--disable-dev-shm-usage")
         #display = Display(visible=0, size= (800, 600))
         #display.start()
-        #driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro-main/chromedriver',  options = chrome_options)
-        service = Service(executable_path=ChromeDriverManager().install())
-        driver = webdriver.Chrome(service = service, options = chrome_options)
+        #service = Service(executable_path=ChromeDriverManager().install())
+        try:
+            driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
+        except:
+            driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro-main/chromedriver',  options = chrome_options)
         driver.get(url)
         return driver
 

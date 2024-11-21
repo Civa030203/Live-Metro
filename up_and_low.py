@@ -65,11 +65,14 @@ class up_low_info():
             if station == '도라산': # 경의선 도라산 셔틀 구간
                 up_and_low.append('도라산')
                 up_and_low.append('임진강')
-            elif station in ['임진강', '운천']: # 경의선 임진강 ~ 운천 별도 운행계통 구간
-                up_and_low.append('임진강 / 도라산')
+            elif station == '임진강': # 경의선 임진강 ~ 운천 별도 운행계통 구간
+                up_and_low.append('도라산')
+                up_and_low.append('문산')
+            elif station == '운천':
+                up_and_low.append('임진강')
                 up_and_low.append('문산')
             elif station == '문산': # 경의선 문산역
-                up_and_low.append('임진강 / 문산')
+                up_and_low.append('임진강')
                 up_and_low.append('용문(지평) / 덕소(팔당) / 청량리(용산) / 서울역')
             elif station in ['파주', '월롱', '금촌', '금릉', '운정', '야당', '탄현', '일산', '풍산', '백마', '곡산']: # 경의선 파주 ~ 곡산 구간
                 up_and_low.append('문산')
