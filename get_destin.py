@@ -53,7 +53,7 @@ class get_destin():
             elif destin in ["서울역행", "남태령행", "산본행", "오이도행"]:
                 return '2'
             else:
-                if destin == "당고개행":
+                if destin == ["당고개행", "불암산행"]:
                     if station in ["진접", "오남", "별내별가람"]:
                         return '2'
                     else:
