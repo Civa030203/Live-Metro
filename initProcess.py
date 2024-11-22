@@ -1,6 +1,7 @@
+import traceback
 from pyvirtualdisplay import Display
-from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -17,9 +18,10 @@ class initProcess():
         #display.start()
         #service = Service(executable_path=ChromeDriverManager().install())
         try:
-            driver = webdriver.Chrome(ChromeDriverManager().install(), options = chrome_options)
+            driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options = chrome_options)
         except:
-            driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Live-Metro/chromedriver',  options = chrome_options)
+            traceback.format_exc()
+            driver = webdriver.Chrome('/Users/seungjeajoo/Library/Mobile Documents/com~apple~CloudDocs/Documents/Codes/Live-Metro/chromedriver',  options = chrome_options)
         driver.get(url)
         return driver
 
